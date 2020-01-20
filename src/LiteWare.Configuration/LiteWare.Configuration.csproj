@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Hisham Maudarbocus</Authors>
+    <Company>LiteWare</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Extension methods for XML and JSON Application Configuration File that allow retrieval of string setting values as typed values.</Description>
+    <Copyright />
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/samsam07/LiteWare.Configuration</RepositoryUrl>
+    <PackageTags>app config Configuration Setting JSON</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Added support for the XML configuration (System.Configuration).
+Moved JSON Configuration (Microsoft.Extensions.Configuration) to "Json" Namespace and XML Configuration (System.Configuration) to "XML" Namespace.
+Added new functionality that enables the user to provide custom setting value conversion.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Project Repository\Programming\Projects\LiteWare\LiteWare.Configuration\LiteWare.Configuration\LiteWare.Configuration.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+  </ItemGroup>
+
+</Project>

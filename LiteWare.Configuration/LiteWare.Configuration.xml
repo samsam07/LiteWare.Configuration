@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LiteWare.Configuration</name>
+    </assembly>
+    <members>
+        <member name="T:LiteWare.Configuration.ConfigurationUtility">
+            <summary>
+            Provides utility functions to retrieve configuration values from <see cref="T:System.Collections.Specialized.NameValueCollection"/> and <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LiteWare.Configuration.ConfigurationUtility.MergeToKey(System.String,System.String)">
+            <summary>
+            Merges <paramref name="scope"/> and <paramref name="name"/> as a configuration key.
+            </summary>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the configuration.</param>
+            <returns>A merged configuration key.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.ConfigurationUtility.GetValue``1(System.Collections.Specialized.NameValueCollection,System.String,System.Boolean,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a value from a <see cref="T:System.Collections.Specialized.NameValueCollection"/> configuration.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
+            <param name="key">The configuration key.</param>
+            <param name="optional">
+            A value representing whether <paramref name="defaultValue"/> should be returned if no key was found.
+            A <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
+            </param>
+            <param name="defaultValue">Default value to be returned when <paramref name="optional"/> is set to true.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.ConfigurationUtility.GetValueList``1(System.Collections.Specialized.NameValueCollection,System.String,System.Boolean,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a list of value from a <see cref="T:System.Collections.Specialized.NameValueCollection"/> configuration.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="key">The configuration key.</param>
+            <param name="optional">
+            A value representing whether <paramref name="defaultValueList"/> should be returned if no key was found.
+            A <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
+            </param>
+            <param name="defaultValueList">Default value list to be returned when <paramref name="optional"/> is set to true.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.ConfigurationUtility.GetValue``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs.</param>
+            <param name="key">The configuration key.</param>
+            <param name="optional">
+            A value representing whether <paramref name="defaultValue"/> should be returned if no key was found.
+            A <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
+            </param>
+            <param name="defaultValue">Default value to be returned when <paramref name="optional"/> is set to true.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.ConfigurationUtility.GetValueList``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a list of value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="key">The configuration key.</param>
+            <param name="optional">
+            A value representing whether <paramref name="defaultValueList"/> should be returned if no key was found.
+            A <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
+            </param>
+            <param name="defaultValueList">Default value list to be returned when <paramref name="optional"/> is set to true.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException">
+            <summary>
+            Exception that is thrown when a configuration key was not found.
+            </summary>
+        </member>
+        <member name="M:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException"/> class.
+            </summary>
+        </member>
+        <member name="M:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for this exception.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:LiteWare.Configuration.Exceptions.ConfigurationKeyNotFoundException" /> class.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">An object that describes the source or destination of the serialized data.</param>
+        </member>
+        <member name="T:LiteWare.Configuration.ISettingValueConverter`1">
+            <summary>
+            Provides a way to convert setting string value literals to the type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Resulting type to be converted into.</typeparam>
+        </member>
+        <member name="M:LiteWare.Configuration.ISettingValueConverter`1.Convert(System.String)">
+            <summary>
+            Converts <paramref name="valueLiteral"/> to the type <typeparamref name="T"/>.
+            </summary>
+            <param name="valueLiteral">String representation of the type <typeparamref name="T"/>.</param>
+            <returns>A converted instance of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="T:LiteWare.Configuration.Json.ConfigurationExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValue``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs.</param>
+            <param name="key">The configuration key.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValue``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>. Returns <paramref name="defaultValue"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs.</param>
+            <param name="key">The configuration key.</param>
+            <param name="defaultValue">Default value to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A value of the type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValueList``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a list of value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-list of value.</param>
+            <param name="key">The configuration key.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValueList``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a list of value from a <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>. Returns <paramref name="defaultValueList"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-list of value.</param>
+            <param name="key">The configuration key.</param>
+            <param name="defaultValueList">Default value list to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValue``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value from a scope and name.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValue``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value from a scope and name. Returns <paramref name="defaultValue"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-value pairs.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="defaultValue">Default value to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValueList``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list from a scope and name.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-list of value.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationExtensions.GetValueList``1(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list from a scope and name. Returns <paramref name="defaultValueList"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="configuration">Configuration containing a list of key-list of value.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="defaultValueList">Default value list to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="T:LiteWare.Configuration.Json.ConfigurationManager">
+            <summary>
+            Provide initialization methods and access to the application configuration.
+            </summary>
+        </member>
+        <member name="F:LiteWare.Configuration.Json.ConfigurationManager.DefaultApplicationConfigurationFilename">
+            <summary>
+            The default name of the application configuration file.
+            </summary>
+        </member>
+        <member name="F:LiteWare.Configuration.Json.ConfigurationManager.DefaultApplicationSettingsSectionName">
+            <summary>
+            The default name of the configuration section in the application configuration file.
+            </summary>
+        </member>
+        <member name="P:LiteWare.Configuration.Json.ConfigurationManager.ApplicationConfigurationPath">
+            <summary>
+            Gets the application configuration file path. Is 'null' if not initialized.
+            </summary>
+        </member>
+        <member name="P:LiteWare.Configuration.Json.ConfigurationManager.ApplicationSettingsSectionName">
+            <summary>
+            Gets the application settings section name in configuration file.
+            </summary>
+        </member>
+        <member name="P:LiteWare.Configuration.Json.ConfigurationManager.AppSettings">
+            <summary>
+            Gets the application settings section from the application configuration file.
+            </summary>
+            <returns><see cref="T:Microsoft.Extensions.Configuration.IConfigurationSection"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.GetConfigurationValue(System.String)">
+            <summary>
+            Gets a configuration value.
+            </summary>
+            <param name="key">The configuration key.</param>
+            <returns>The configuration value.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.SetConfigurationValue(System.String,System.String)">
+            <summary>
+            Sets a configuration value.
+            </summary>
+            <param name="key">The configuration key.</param>
+            <param name="value">The configuration value to set.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.Initialize(System.Boolean,System.Boolean)">
+            <summary>
+            Initialize <see cref="P:LiteWare.Configuration.Json.ConfigurationManager.AppSettings"/> with the default application configuration filename located in the same directory of the executable.
+            </summary>
+            <param name="optional">Whether the file is optional.</param>
+            <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.Initialize(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initialize <see cref="P:LiteWare.Configuration.Json.ConfigurationManager.AppSettings"/> with the specified application configuration filename located in the same directory of the executable.
+            </summary>
+            <param name="applicationConfigurationFilename">Name of the application configuration file.</param>
+            <param name="applicationSettingsSectionName">The application settings section name</param>
+            <param name="optional">Whether the file is optional.</param>
+            <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.Initialize(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initialize <see cref="P:LiteWare.Configuration.Json.ConfigurationManager.AppSettings"/> with the specified application configuration filename located in the specified directory.
+            </summary>
+            <param name="applicationConfigurationFilename">Name of the application configuration file.</param>
+            <param name="baseDirectory">The absolute path of application configuration file.</param>
+            <param name="applicationSettingsSectionName">The application settings section name</param>
+            <param name="optional">Whether the file is optional.</param>
+            <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.GetSection(System.String)">
+            <summary>
+            Gets a configuration sub-section with the specified key.
+            </summary>
+            <param name="key">The key of the configuration section.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.Configuration.IConfigurationSection" />.</returns>
+            <remarks>
+                This method will never return <c>null</c>. If no matching sub-section is found with the specified key,
+                an empty <see cref="T:Microsoft.Extensions.Configuration.IConfigurationSection" /> will be returned.
+            </remarks>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.GetChildren">
+            <summary>
+            Gets the immediate descendant configuration sub-sections.
+            </summary>
+            <returns>The configuration sub-sections.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Json.ConfigurationManager.GetReloadToken">
+            <summary>
+            Returns a <see cref="T:Microsoft.Extensions.Primitives.IChangeToken" /> that can be used to observe when this configuration is reloaded.
+            </summary>
+            <returns>A <see cref="T:Microsoft.Extensions.Primitives.IChangeToken" />.</returns>
+        </member>
+        <member name="T:LiteWare.Configuration.Xml.ConfigurationExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:System.Collections.Specialized.NameValueCollection"/>.
+            </summary>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValue``1(System.Collections.Specialized.NameValueCollection,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
+            <param name="key"></param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValue``1(System.Collections.Specialized.NameValueCollection,System.String,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value. Returns <paramref name="defaultValue"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
+            <param name="key"></param>
+            <param name="defaultValue">Default value to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValueList``1(System.Collections.Specialized.NameValueCollection,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="key">The configuration key.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValueList``1(System.Collections.Specialized.NameValueCollection,System.String,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list. Returns <paramref name="defaultValueList"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="key">The configuration key.</param>
+            <param name="defaultValueList">Default value list to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValue``1(System.Collections.Specialized.NameValueCollection,System.String,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value from a scope and name.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValue``1(System.Collections.Specialized.NameValueCollection,System.String,System.String,``0,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value from a scope and name. Returns <paramref name="defaultValue"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="defaultValue">Default value to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A configuration value of the type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValueList``1(System.Collections.Specialized.NameValueCollection,System.String,System.String,LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list from a scope and name.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+        <member name="M:LiteWare.Configuration.Xml.ConfigurationExtensions.GetValueList``1(System.Collections.Specialized.NameValueCollection,System.String,System.String,System.Collections.Generic.IEnumerable{``0},LiteWare.Configuration.ISettingValueConverter{``0})">
+            <summary>
+            Gets a configuration value list from a scope and name. Returns <paramref name="defaultValueList"/> if no key was found.
+            </summary>
+            <typeparam name="T">Type of the returned value.</typeparam>
+            <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
+            <param name="scope">Scope of the configuration.</param>
+            <param name="name">Name of the scope.</param>
+            <param name="defaultValueList">Default value list to return if no key is found.</param>
+            <param name="valueConverter">A <see cref="T:LiteWare.Configuration.ISettingValueConverter`1"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+        </member>
+    </members>
+</doc>
