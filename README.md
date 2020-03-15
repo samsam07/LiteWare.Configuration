@@ -14,7 +14,7 @@ A typical code that uses application configuration might look like:
 string companyName = ConfigurationManager.AppSettings["companyName"];
 decimal budget = Convert.ToDecimal(ConfigurationManager.AppSettings["budget"]);
 
-IEnumerable<DateTime> holidays = new List<DateTime>();
+IEnumerable<DateTime> holidays;
 string[] holidayValues = ConfigurationManager.AppSettings.GetValues("holidays");
 if (holidayValues != null)
 {
@@ -62,7 +62,7 @@ using LiteWare.Configuration.Json;
 // ...
 
 IEnumerable<string> blacklist = ConfigurationManager.AppSettings.GetValueList<string>("firewall.blacklist");
-IEnumerable<string> whitelist = ConfigurationManager.GetConfigurationValueList<string>("firewall", "whitelist");
+IEnumerable<string> whitelist = ConfigurationManager.AppSettings.GetValueList<string>("firewall", "whitelist");
 ```
 
 Notice you don't need to import `Microsoft.Extensions.Configuration`. This is because `ConfigurationManager` is provided by `LiteWare.Configuration.Json` and already contain all the required imports. More on this is explained in [ConfigurationManager](#ConfigurationManager) section.
@@ -73,31 +73,20 @@ To keep a consistency with `System.Configuration`, `LiteWare.Configuration.Json`
 
 The library expects custom JSON configuration file to have the filename `app.config.json`, but this might not always be desirable. To go around this, you will need to manually call the proper `Initialize` method of the class before calling any `AppSettings` properties.
 
-Make sure that your custom JSON file has a section named `ApplicationSettings` if you intend to use the `GetConfigurationValue` and `GetConfigurationValueList` methods.
+> Note that if you are using the default location for JSON configuration file, you will need to manually copy the file to your project output directory or set the file's `Copy to Output Directory` to `Copy always` or `Copy if newer`.
 
-``` cs
-// 'ConfigurationManager.ConfigurationSection' is the shorthand for
-ConfigurationManager.AppSettings.GetSection("ApplicationSettings");
-
-// 'ConfigurationManager.GetConfigurationValue' is the shorthand for
-ConfigurationManager.ConfigurationSection.GetValue(...);
-
-// 'ConfigurationManager.GetConfigurationValueList' is the shorthand for
-ConfigurationManager.ConfigurationSection.GetValueList(...);
-```
+Application settings are stored in the `ApplicationSettings` section of the JSON file. Again, this section name can be changed by calling the proper `Initialize` method.
 
 ### JSON Configuration File Example
 
 An example of a custom JSON configuration file might look like:
 
-``` JSON
+``` json
 {
-    ...
-
     "ApplicationSettings": {
         "companyName": "LiteWare",
         "budget": 5489562,
-        "holidays": [ ],
+        "holidays": [ "20/01/2020", "22/01/2020" ],
 
         "process.start": "2020-01-19",
         "process.delay": 5000,
@@ -111,9 +100,7 @@ An example of a custom JSON configuration file might look like:
             "10.130.45.*",
             "10.130.1.88"
         ]
-    },
-
-    ...
+    }
 }
 ```
 
@@ -123,17 +110,17 @@ An example of a custom JSON configuration file might look like:
 
     A setting key can contain 1 or more values, for instance:
     
-    ``` xml
-    <configuration>
-        ...
-        <appSettings>
-            <add key="singleValue" value="123" />
-            <add key="listOfValues" value="value1" />
-            <add key="listOfValues" value="value2" />
-            <add key="listOfValues" value="value3" />
-        </appSettings>
-        ...
-    </configuration>
+    ``` json
+    {
+        "ApplicationSettings": {
+            "singleValue": "123",
+            "listOfValues": [
+                "value1",
+                "value2",
+                "value3"
+            ]
+        }
+    }
     ```
 
     Extraction of these values are done with the methods `GetValue` and `GetValueList` respectively:
@@ -178,7 +165,7 @@ An example of a custom JSON configuration file might look like:
 
 - ## Custom setting value converter
 
-    The library already provide setting value conversion to some of the most common types like `int`, `long`, `DateTime`, etc... In some cases, you might want to convert the string value to a more complex type or apply some transformation to the data. For that, we use the `ISettingValueConverter` interface to create a derived class and pass it as parameter to fetch a complex setting.
+    The library already provides setting value conversion to some of the most common types like `int`, `long`, `DateTime`, etc... In some cases, you might want to convert the string value to a more complex type or apply some transformation to the data. For that, we use the `ISettingValueConverter` interface to create a derived class and pass it as parameter to fetch a complex setting.
 
     An example of this is if you want to include database password in your configuration file but don't want to store it as plain text. You might have a JSON configuration like:
 
@@ -211,5 +198,5 @@ An example of a custom JSON configuration file might look like:
 
     ``` cs
     PasswordSettingValueConverter passwordConverter = new PasswordSettingValueConverter();
-    string password = ConfigurationManager.GetConfigurationValue<string>("password", passwordConverter);
+    string password = ConfigurationManager.AppSettings.GetValue<string>("password", passwordConverter);
     ```
