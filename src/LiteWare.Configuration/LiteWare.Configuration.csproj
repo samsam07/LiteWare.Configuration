@@ -6,28 +6,24 @@
     <Company>LiteWare</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Extension methods for XML and JSON Application Configuration File that allow retrieval of string setting values as typed values.</Description>
-    <Copyright />
+    <Copyright>Copyright (c) 2020 Hisham Maudarbocus</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/samsam07/LiteWare.Configuration</RepositoryUrl>
-    <PackageTags>app config Configuration Setting JSON</PackageTags>
+    <PackageTags>app.config Configuration Setting</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Added support for the XML configuration (System.Configuration).
-Moved JSON Configuration (Microsoft.Extensions.Configuration) to "Json" Namespace and XML Configuration (System.Configuration) to "XML" Namespace.
-Added new functionality that enables the user to provide custom setting value conversion.</PackageReleaseNotes>
-  </PropertyGroup>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>Corrected a bug which prevented conversion of setting value to nullable types.
+Corrected a bug that masked one overload of GetValue due to overloading conflict.
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Project Repository\Programming\Projects\LiteWare\LiteWare.Configuration\LiteWare.Configuration\LiteWare.Configuration.xml</DocumentationFile>
+More info on https://github.com/samsam07/LiteWare.Configuration</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>E:\Project Repository\Projects\LiteWare\LiteWare.Configuration\src\LiteWare.Configuration\LiteWare.Configuration.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
   </ItemGroup>
-
 </Project>

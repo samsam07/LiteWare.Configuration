@@ -1,6 +1,6 @@
 ﻿// MIT License
 //
-// Copyright (c) 2019 Hisham Maudarbocus
+// Copyright (c) 2020 Hisham Maudarbocus
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,33 +29,39 @@ using System.Linq;
 
 namespace LiteWare.Configuration
 {
-    /// <summary>
-    /// Provides utility functions to retrieve configuration values from <see cref="NameValueCollection"/> and <see cref="IConfiguration"/>.
-    /// </summary>
     internal static class ConfigurationUtility
     {
-        /// <summary>
-        /// Merges <paramref name="scope"/> and <paramref name="name"/> as a configuration key.
-        /// </summary>
-        /// <param name="scope">Scope of the configuration.</param>
-        /// <param name="name">Name of the configuration.</param>
-        /// <returns>A merged configuration key.</returns>
         public static string MergeToKey(string scope, string name)
             => scope + '.' + name;
 
-        /// <summary>
-        /// Gets a value from a <see cref="NameValueCollection"/> configuration.
-        /// </summary>
-        /// <typeparam name="T">Type of the returned value.</typeparam>
-        /// <param name="nameValueCollection">Configuration containing a list of key-value pairs.</param>
-        /// <param name="key">The configuration key.</param>
-        /// <param name="optional">
-        /// A value representing whether <paramref name="defaultValue"/> should be returned if no key was found.
-        /// A <see cref="ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
-        /// </param>
-        /// <param name="defaultValue">Default value to be returned when <paramref name="optional"/> is set to true.</param>
-        /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
-        /// <returns>A value of the type <typeparamref name="T"/>.</returns>
+        private static bool IsNullable(Type type, out Type underlyingType)
+        {
+            if (!type.IsValueType)
+            {
+                underlyingType = null;
+                return true;
+            }
+
+            underlyingType = Nullable.GetUnderlyingType(type);
+            bool isNullable = (underlyingType != null);
+
+            return isNullable;
+        }
+
+        private static T Convert<T>(string value)
+        {
+            bool isNullable = IsNullable(typeof(T), out Type nullableUnderlyingType);
+            if (value == null && isNullable)
+            {
+                return default;
+            }
+
+            Type conversionType = nullableUnderlyingType ?? typeof(T);
+            T result = (T)System.Convert.ChangeType(value, conversionType);
+
+            return result;
+        }
+
         public static T GetValue<T>(NameValueCollection nameValueCollection, string key, bool optional, T defaultValue = default, ISettingValueConverter<T> valueConverter = null)
         {
             string[] values = nameValueCollection.GetValues(key);
@@ -66,7 +72,7 @@ namespace LiteWare.Configuration
                 T rtn;
                 if (valueConverter == null)
                 {
-                    rtn = (T)Convert.ChangeType(value, typeof(T));
+                    rtn = Convert<T>(value);
                 }
                 else
                 {
@@ -84,19 +90,6 @@ namespace LiteWare.Configuration
             throw new ConfigurationKeyNotFoundException(key);
         }
 
-        /// <summary>
-        /// Gets a list of value from a <see cref="NameValueCollection"/> configuration.
-        /// </summary>
-        /// <typeparam name="T">Type of the returned value.</typeparam>
-        /// <param name="nameValueCollection">Configuration containing a list of key-value pairs or list values.</param>
-        /// <param name="key">The configuration key.</param>
-        /// <param name="optional">
-        /// A value representing whether <paramref name="defaultValueList"/> should be returned if no key was found.
-        /// A <see cref="ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
-        /// </param>
-        /// <param name="defaultValueList">Default value list to be returned when <paramref name="optional"/> is set to true.</param>
-        /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
-        /// <returns>A value of the type <typeparamref name="T"/>.</returns>
         public static IEnumerable<T> GetValueList<T>(NameValueCollection nameValueCollection, string key, bool optional, IEnumerable<T> defaultValueList = default, ISettingValueConverter<T> valueConverter = null)
         {
             string[] values = nameValueCollection.GetValues(key);
@@ -105,7 +98,7 @@ namespace LiteWare.Configuration
                 IEnumerable<T> rtn;
                 if (valueConverter == null)
                 {
-                    rtn = values.Select(v => (T)Convert.ChangeType(v, typeof(T)));
+                    rtn = values.Select(Convert<T>);
                 }
                 else
                 {
@@ -123,19 +116,6 @@ namespace LiteWare.Configuration
             throw new ConfigurationKeyNotFoundException(key);
         }
 
-        /// <summary>
-        /// Gets a value from a <see cref="IConfiguration"/>.
-        /// </summary>
-        /// <typeparam name="T">Type of the returned value.</typeparam>
-        /// <param name="configuration">Configuration containing a list of key-value pairs.</param>
-        /// <param name="key">The configuration key.</param>
-        /// <param name="optional">
-        /// A value representing whether <paramref name="defaultValue"/> should be returned if no key was found.
-        /// A <see cref="ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
-        /// </param>
-        /// <param name="defaultValue">Default value to be returned when <paramref name="optional"/> is set to true.</param>
-        /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
-        /// <returns>A value of the type <typeparamref name="T"/>.</returns>
         public static T GetValue<T>(IConfiguration configuration, string key, bool optional, T defaultValue = default, ISettingValueConverter<T> valueConverter = null)
         {
             bool hasKey = configuration
@@ -148,7 +128,7 @@ namespace LiteWare.Configuration
                 T rtn;
                 if (valueConverter == null)
                 {
-                    rtn = (T)Convert.ChangeType(value, typeof(T));
+                    rtn = Convert<T>(value);
                 }
                 else
                 {
@@ -166,19 +146,6 @@ namespace LiteWare.Configuration
             throw new ConfigurationKeyNotFoundException(key);
         }
 
-        /// <summary>
-        /// Gets a list of value from a <see cref="IConfiguration"/>.
-        /// </summary>
-        /// <typeparam name="T">Type of the returned value.</typeparam>
-        /// <param name="configuration">Configuration containing a list of key-value pairs or list values.</param>
-        /// <param name="key">The configuration key.</param>
-        /// <param name="optional">
-        /// A value representing whether <paramref name="defaultValueList"/> should be returned if no key was found.
-        /// A <see cref="ConfigurationKeyNotFoundException"/> is thrown if this value is false and no key was found.
-        /// </param>
-        /// <param name="defaultValueList">Default value list to be returned when <paramref name="optional"/> is set to true.</param>
-        /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
-        /// <returns>A value of the type <typeparamref name="T"/>.</returns>
         public static IEnumerable<T> GetValueList<T>(IConfiguration configuration, string key, bool optional, IEnumerable<T> defaultValueList = default, ISettingValueConverter<T> valueConverter = null)
         {
             bool hasKey = configuration
@@ -194,7 +161,7 @@ namespace LiteWare.Configuration
                 IEnumerable<T> rtn;
                 if (valueConverter == null)
                 {
-                    rtn = values.Select(v => (T)Convert.ChangeType(v, typeof(T)));
+                    rtn = values.Select(Convert<T>);
                 }
                 else
                 {

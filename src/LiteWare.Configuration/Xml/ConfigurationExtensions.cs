@@ -1,6 +1,6 @@
 ﻿// MIT License
 //
-// Copyright (c) 2019 Hisham Maudarbocus
+// Copyright (c) 2020 Hisham Maudarbocus
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -85,7 +85,7 @@ namespace LiteWare.Configuration.Xml
         /// <param name="name">Name of the scope.</param>
         /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
         /// <returns>A configuration value of the type <typeparamref name="T"/></returns>
-        public static T GetValue<T>(this NameValueCollection nameValueCollection, string scope, string name, ISettingValueConverter<T> valueConverter = null)
+        public static T GetScopeValue<T>(this NameValueCollection nameValueCollection, string scope, string name, ISettingValueConverter<T> valueConverter = null)
         {
             string key = ConfigurationUtility.MergeToKey(scope, name);
             T rtn = GetValue(nameValueCollection, key, valueConverter);
@@ -103,7 +103,7 @@ namespace LiteWare.Configuration.Xml
         /// <param name="defaultValue">Default value to return if no key is found.</param>
         /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
         /// <returns>A configuration value of the type <typeparamref name="T"/></returns>
-        public static T GetValue<T>(this NameValueCollection nameValueCollection, string scope, string name, T defaultValue, ISettingValueConverter<T> valueConverter = null)
+        public static T GetScopeValue<T>(this NameValueCollection nameValueCollection, string scope, string name, T defaultValue, ISettingValueConverter<T> valueConverter = null)
         {
             string key = ConfigurationUtility.MergeToKey(scope, name);
             T rtn = GetValue(nameValueCollection, key, defaultValue, valueConverter);
@@ -120,7 +120,7 @@ namespace LiteWare.Configuration.Xml
         /// <param name="name">Name of the scope.</param>
         /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
         /// <returns>A <see cref="IEnumerable{T}"/>.</returns>
-        public static IEnumerable<T> GetValueList<T>(this NameValueCollection nameValueCollection, string scope, string name, ISettingValueConverter<T> valueConverter = null)
+        public static IEnumerable<T> GetScopeValueList<T>(this NameValueCollection nameValueCollection, string scope, string name, ISettingValueConverter<T> valueConverter = null)
         {
             string key = ConfigurationUtility.MergeToKey(scope, name);
             IEnumerable<T> rtn = GetValueList(nameValueCollection, key, valueConverter);
@@ -138,7 +138,7 @@ namespace LiteWare.Configuration.Xml
         /// <param name="defaultValueList">Default value list to return if no key is found.</param>
         /// <param name="valueConverter">A <see cref="ISettingValueConverter{T}"/> that converts configuration value literals to the type <typeparamref name="T"/>.</param>
         /// <returns>A <see cref="IEnumerable{T}"/>.</returns>
-        public static IEnumerable<T> GetValueList<T>(this NameValueCollection nameValueCollection, string scope, string name, IEnumerable<T> defaultValueList, ISettingValueConverter<T> valueConverter = null)
+        public static IEnumerable<T> GetScopeValueList<T>(this NameValueCollection nameValueCollection, string scope, string name, IEnumerable<T> defaultValueList, ISettingValueConverter<T> valueConverter = null)
         {
             string key = ConfigurationUtility.MergeToKey(scope, name);
             IEnumerable<T> rtn = GetValueList(nameValueCollection, key, defaultValueList, valueConverter);
