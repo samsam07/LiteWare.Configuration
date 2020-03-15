@@ -51,7 +51,7 @@ namespace LiteWare.Configuration
         private static T Convert<T>(string value)
         {
             bool isNullable = IsNullable(typeof(T), out Type nullableUnderlyingType);
-            if (value == null && isNullable)
+            if (string.IsNullOrEmpty(value) && isNullable)
             {
                 return default;
             }
