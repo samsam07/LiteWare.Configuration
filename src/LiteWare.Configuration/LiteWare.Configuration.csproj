@@ -11,9 +11,8 @@
     <RepositoryUrl>https://github.com/samsam07/LiteWare.Configuration</RepositoryUrl>
     <PackageTags>app.config Configuration Setting</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.1.1</Version>
-    <PackageReleaseNotes>Corrected a bug which prevented conversion of setting value to nullable types.
-Corrected a bug that masked one overload of GetValue due to overloading conflict.
+    <Version>1.1.2</Version>
+    <PackageReleaseNotes>Corrected bug which prevented conversion of setting value to nullable types when the setting is provided but set to null.
 
 More info on https://github.com/samsam07/LiteWare.Configuration</PackageReleaseNotes>
   </PropertyGroup>
